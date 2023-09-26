@@ -1,0 +1,51 @@
+﻿<Window x:Class="PizzaApp.Customize"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PizzaApp"
+        mc:Ignorable="d"
+        Title="Customize" Height="450" Width="800">
+    <Grid HorizontalAlignment="Left" Width="800">
+
+        <StackPanel>
+            <TextBlock Text="Customize din pizza!" HorizontalAlignment="Center"
+                       FontSize="24"
+                       FontWeight="DemiBold">
+
+            </TextBlock>
+
+            <WrapPanel Orientation="Horizontal" Margin="10">
+                <CheckBox Content="Ost (+5kr)" IsChecked="{Binding Path=CustomizationOption.Ost, Mode=TwoWay}" Margin="10"/>
+                <CheckBox x:Name="SucukCheckBox" Content="Sucuk (+5kr)" IsChecked="{Binding Path=CustomizationOption.Sucuk, Mode=TwoWay}" Margin="10"/>
+                <CheckBox Content="Pølser (+5kr)" IsChecked="{Binding Path=CustomizationOption.Poelser, Mode=TwoWay}" Margin="10"/>
+                <CheckBox Content="Pepperoni (+5kr) " IsChecked="{Binding Path=CustomizationOption.Pepperoni, Mode=TwoWay}" Margin="10"/>
+                <CheckBox Content="Salat (+5kr) " IsChecked="{Binding Path=CustomizationOption.Salat, Mode=TwoWay}" Margin="10"/>
+                <CheckBox Content="CremeFraicheDress (+5kr) " IsChecked="{Binding Path=CustomizationOption.CremeFraicheDress, Mode=TwoWay}" Margin="10"/>
+                <CheckBox Content="Tomat (+5kr) " IsChecked="{Binding Path=CustomizationOption.Tomat, Mode=TwoWay}" Margin="10"/>
+                <CheckBox Content="Agurk (+5kr) " IsChecked="{Binding Path=CustomizationOption.Agurk, Mode=TwoWay}" Margin="10"/>
+                <CheckBox Content="Chili (+5kr) " IsChecked="{Binding Path=CustomizationOption.Chili, Mode=TwoWay}" Margin="10"/>
+                <CheckBox Content="Hvidløg (+5kr) " IsChecked="{Binding Path=CustomizationOption.Hvidløg, Mode=TwoWay}" Margin="10"/>
+                <CheckBox Content="Skinke (+5kr) " IsChecked="{Binding Path=CustomizationOption.Skinke, Mode=TwoWay}" Margin="10"/>
+                <CheckBox Content="Ananas (+5kr) " IsChecked="{Binding Path=CustomizationOption.Ananas, Mode=TwoWay}" Margin="10"/>
+                <CheckBox Content="Bacon (+5kr) " IsChecked="{Binding Path=CustomizationOption.Bacon, Mode=TwoWay}" Margin="10"/>
+                <CheckBox Content="Kebab (+5kr) " IsChecked="{Binding Path=CustomizationOption.Kebab, Mode=TwoWay}" Margin="10"/>
+                <CheckBox Content="Bearnaisesovs (+5kr) " IsChecked="{Binding Path=CustomizationOption.Bearnaisesovs, Mode=TwoWay}" Margin="10"/>
+                <CheckBox Content="Kødfars (+5kr) " IsChecked="{Binding Path=CustomizationOption.Koedfars, Mode=TwoWay}" Margin="10"/>
+                <CheckBox Content="PommesFrites (+5kr) " IsChecked="{Binding Path=CustomizationOption.PommesFrites, Mode=TwoWay}" Margin="10"/>
+                <CheckBox Content="Røddressing (+5kr) " IsChecked="{Binding Path=CustomizationOption.Roeddressing, Mode=TwoWay}" Margin="10"/>
+                <CheckBox Content="Jalapenos (+5kr) " IsChecked="{Binding Path=CustomizationOption.Jalapenos, Mode=TwoWay}" Margin="10"/>
+                <CheckBox Content="Løg (+5kr) " IsChecked="{Binding Path=CustomizationOption.Løg, Mode=TwoWay}" Margin="10"/>
+                <CheckBox Content="Chilisauce (+5kr) " IsChecked="{Binding Path=CustomizationOption.Chilisauce, Mode=TwoWay}" Margin="10"/>
+            </WrapPanel>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,196,0,101">
+            <Button Content="Confirm" Margin="5" Width="80" Height="80" Click="ConfirmButton_Click"/>
+            <Button Content="Cancel" Margin="5" Width="80" Height="80" Click="CancelButton_Click"/>
+
+
+        </StackPanel>
+
+    </Grid>
+</Window>

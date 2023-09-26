@@ -1,0 +1,10 @@
+﻿<Window x:Class="PizzaApp.Bestilling"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Bestilling" Height="450" Width="900">
+    <Grid>
+        <TextBox x:Name="orderTextBox1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Width="812" Height="246" IsReadOnly="True"/>
+        <TextBlock x:Name="totalCostTextBlock1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="345,0,0,32" FontSize="18" Width="400" Height="84"/>
+        <Button Content="Betal!" HorizontalAlignment="Left" Margin="529,284,0,0" VerticalAlignment="Top" Height="86" Width="206" FontSize="24" Click="Button_Click"/>
+    </Grid>
+</Window>
