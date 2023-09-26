@@ -24,9 +24,9 @@ namespace PizzaApp
     {
 
         private CustomizationOption customizationOption;
-        private decimal SucukPris;
+        //private decimal SucukPris;
         private Dictionary<string, decimal> pizzaPrices = new Dictionary<string, decimal>
-            {
+        {
                  { "Margherita Pizza - tomatsauce og ost 55,-", 55 },
                  { "Pepperoni Pizza – tomatsauce, ost og pepperoni 45,-", 45 },
                  { "Hawaiian Pizza - tomatsauce, ost, skinke og ananas 70,-", 70 },
@@ -39,7 +39,7 @@ namespace PizzaApp
                  { "Sucuk Pizza – tomatsauce, ost, kebab, sucuk, jalapenos og løg 85,-", 85 }
 
 
-            };
+        };
         private Dictionary<string, decimal> drinkPrices = new Dictionary<string, decimal>
         {
                  { "Coca Cola Dåse 33cl 15,-", 15 },
@@ -57,7 +57,7 @@ namespace PizzaApp
             InitializePizzaListBoxItems();
             InitializeDrinkListBoxItems();
             customizationOption = new CustomizationOption();
-            SucukPris = 5;
+            //SucukPris = 5;
         }
 
         private void InitializePizzaListBoxItems()
@@ -125,7 +125,7 @@ namespace PizzaApp
             public decimal PricePerItem { get; set; }
             public CustomizationOption CustomizationOption { get; set; }
 
-            public decimal customizationOption = 5;
+           // public decimal customizationOption = 5;
 
         }
 
@@ -170,6 +170,7 @@ namespace PizzaApp
 
                         
                         pizzaListBox.SelectedItem = null;
+                        
                     }
                 }
             }
@@ -233,28 +234,40 @@ namespace PizzaApp
         public decimal CalculateTotalCost()
         {
             decimal totalCost = 0;
-            decimal customizationOption = 5;
+            decimal customizationPrice = CalculateCustomizationPrice(customizationOption);
             foreach (var item in orderItems)
             {
                 
                 
-                totalCost += (item.PricePerItem + item.customizationOption * item.Quantity);
+                totalCost += (item.PricePerItem * item.Quantity) + customizationPrice;
             }
-
+            
             return totalCost;
         }
 
 
-       private decimal CalculateCustomizationPrice(CustomizationOption customizationOption)
+       public decimal CalculateCustomizationPrice(CustomizationOption customizationOption)
         {
-            decimal customizationPrice = 5;
+            decimal customizationPrice = 0;
+
+            if (customizationOption.Ost)
+            {
+                customizationPrice += 5;
+            }
 
             if (customizationOption.Sucuk)
             {
-                customizationPrice += SucukPris; 
-           }
+                customizationPrice += 5;
+            }
+           
+            if (customizationOption.Poelser)
+            {
+                customizationPrice += 5;
+            }
 
-          return customizationPrice;
+
+            return customizationPrice;
+          
        }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
@@ -275,6 +288,7 @@ namespace PizzaApp
                 if (customization.Ost)
                 {
                     selectedOptions.Add("Ost");
+                   
                 }
 
                 if (customization.Sucuk)
