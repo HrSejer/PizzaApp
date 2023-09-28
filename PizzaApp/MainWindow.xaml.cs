@@ -265,7 +265,95 @@ namespace PizzaApp
                 customizationPrice += 5;
             }
 
+            if (customizationOption.Pepperoni)
+            {
+                customizationPrice += 5;
+            }
 
+            if (customizationOption.Salat)
+            {
+                customizationPrice += 5;
+            }
+
+            if (customizationOption.CremeFraicheDress)
+            {
+                customizationPrice += 5;
+            }
+
+            if (customizationOption.Tomat)
+            {
+                customizationPrice += 5;
+            }
+
+            if (customizationOption.Agurk)
+            {
+                customizationPrice += 5;
+            }
+
+            if (customizationOption.Chili)
+            {
+                customizationPrice += 5;
+            }
+
+            if (customizationOption.Hvidløg)
+            {
+                customizationPrice += 5;
+            }
+
+            if (customizationOption.Skinke)
+            {
+                customizationPrice += 5;
+            }
+
+            if (customizationOption.Ananas)
+            {
+                customizationPrice += 5;
+            }
+
+            if (customizationOption.Bacon)
+            {
+                customizationPrice += 5;
+            }
+
+            if (customizationOption.Kebab)
+            {
+                customizationPrice += 5;
+            }
+
+            if (customizationOption.Bearnaisesovs)
+            {
+                customizationPrice += 5;
+            }
+
+            if (customizationOption.Koedfars)
+            {
+                customizationPrice += 5;
+            }
+
+            if (customizationOption.PommesFrites)
+            {
+                customizationPrice += 5;
+            }
+
+            if (customizationOption.Roeddressing)
+            {
+                customizationPrice += 5;
+            }
+
+            if (customizationOption.Jalapenos)
+            {
+                customizationPrice += 5;
+            }
+
+            if (customizationOption.Løg)
+            {
+                customizationPrice += 5;
+            }
+
+            if (customizationOption.Chilisauce)
+            {
+                customizationPrice += 5;
+            }
             return customizationPrice;
           
        }
@@ -283,7 +371,6 @@ namespace PizzaApp
             List<string> selectedOptions = new List<string>();
             if (customization != null)
             {
-
 
                 if (customization.Ost)
                 {
