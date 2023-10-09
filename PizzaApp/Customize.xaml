@@ -16,10 +16,10 @@
             </TextBlock>
 
             <WrapPanel Orientation="Horizontal" Margin="10">
-                <CheckBox Content="Ost (+5kr)" IsChecked="{Binding Path=CustomizationOption.Ost, Mode=TwoWay}" Margin="10"/>
+                <CheckBox x:Name="OstCheckBox" Content="Ost (+5kr)" IsChecked="{Binding Path=CustomizationOption.Ost, Mode=TwoWay}" Margin="10"/>
                 <CheckBox x:Name="SucukCheckBox" Content="Sucuk (+5kr)" IsChecked="{Binding Path=CustomizationOption.Sucuk, Mode=TwoWay}" Margin="10"/>
                 <CheckBox Content="Pølser (+5kr)" IsChecked="{Binding Path=CustomizationOption.Poelser, Mode=TwoWay}" Margin="10"/>
-                <CheckBox Content="Pepperoni (+5kr) " IsChecked="{Binding Path=CustomizationOption.Pepperoni, Mode=TwoWay}" Margin="10"/>
+                <CheckBox x:Name="PepperoniCheckBox" Content="Pepperoni (+5kr) " IsChecked="{Binding Path=CustomizationOption.Pepperoni, Mode=TwoWay}" Margin="10"/>
                 <CheckBox Content="Salat (+5kr) " IsChecked="{Binding Path=CustomizationOption.Salat, Mode=TwoWay}" Margin="10"/>
                 <CheckBox Content="CremeFraicheDress (+5kr) " IsChecked="{Binding Path=CustomizationOption.CremeFraicheDress, Mode=TwoWay}" Margin="10"/>
                 <CheckBox Content="Tomat (+5kr) " IsChecked="{Binding Path=CustomizationOption.Tomat, Mode=TwoWay}" Margin="10"/>

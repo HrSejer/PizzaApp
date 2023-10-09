@@ -18,24 +18,29 @@ namespace PizzaApp
     public partial class Customize : Window
     {
         public CustomizationOption CustomizationOption { get; set; }
+        private CustomizationOption customizationOption;
+
         public Customize(string selectedPizza, CustomizationOption customizationOption, decimal pizzaBasePrice)
         {
             InitializeComponent();
             DataContext = this;
             CustomizationOption = customizationOption;
-            selectedPizzaBasePrice = pizzaBasePrice;
-            
+            this.customizationOption = customizationOption;
+
         }
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
             CheckBox checkBox = (CheckBox)sender;
             string option = checkBox.Content.ToString();
 
-            if (!CustomizationOption.SelectedOptions.Contains(option))
+            if (!checkedOptions.Contains(option))
             {
-                CustomizationOption.SelectedOptions.Add(option);
-                CustomizationOption.TotalCost += 10; 
+                checkedOptions.Add(option);
+                UpdateCustomizationPrice();
+                UpdateCustomizationOption();
             }
+
+
         }
 
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
@@ -43,69 +48,115 @@ namespace PizzaApp
             CheckBox checkBox = (CheckBox)sender;
             string option = checkBox.Content.ToString();
 
-            if (CustomizationOption.SelectedOptions.Contains(option))
+            if (checkedOptions.Contains(option))
             {
-                CustomizationOption.SelectedOptions.Remove(option);
-                CustomizationOption.TotalCost -= 10; 
+                checkedOptions.Remove(option);
+                UpdateCustomizationPrice();
+                UpdateCustomizationOption();
             }
         }
-        public decimal selectedPizzaBasePrice { get; set; }
-        public decimal OstPris { get; set; } = 5;
-        public decimal SucukPris { get; set; } = 5;
-        public decimal PoelserPris { get; set; } = 5;
-        public decimal PepperoniPris { get; set; } = 5;
-        public decimal SalatPris { get; set; } = 5;
-        public decimal CremeFraicheDressPris { get; set; } = 5;
-        public decimal TomatPris { get; set; } = 5;
-        public decimal AgurkPris { get; set; } = 5;
-        public decimal ChiliPris { get; set; } = 5;
-        public decimal HvidløgPris { get; set; } = 5;
-        public decimal SkinkePris { get; set; } = 5;
-        public decimal AnanasPris { get; set; } = 5;
-        public decimal BaconPris { get; set; } = 5;
-        public decimal KebabPris { get; set; } = 5;
-        public decimal BearnaisesovsPris { get; set; } = 5;
-        public decimal KoedfarsPris { get; set; } = 5;
-        public decimal PommesFritesPris { get; set; } = 5;
-        public decimal RoeddressingPris { get; set; } = 5;
-        public decimal JalapenosPris { get; set; } = 5;
-        public decimal LøgPris { get; set; } = 5;
-        public decimal ChilisaucePris { get; set; } = 5;
+
+        private void UpdateCustomizationOption()
+        {
+            // Update the customization options and calculate the total customization cost
+            customizationOption.Ost = OstCheckBox.IsChecked ?? false;
+            customizationOption.Sucuk = SucukCheckBox.IsChecked ?? false;
+            // ... Add similar lines for other toppings
+
+            // Calculate the customization cost and update the TotalCost property
+            
+        }
+        private void UpdateCustomizationPrice()
+        {
+            decimal customizationPrice = 0;
+            foreach (var option in checkedOptions)
+            {
+                if (customizationPrices.ContainsKey(option))
+                {
+                    customizationPrice += customizationPrices[option];
+                }
+            }
+
+            CustomizationOption.TotalCost = customizationPrice;
+        }
+
+
+        private Dictionary<string, decimal> customizationPrices = new Dictionary<string, decimal>
+        {
+          { "Ost", 5 },
+          { "Sucuk", 5 },
+          { "Poelser", 5 },
+          { "Pepperoni", 5 },
+          { "Salat", 5 },
+          { "CremeFraicheDress", 5 },
+          { "Tomat", 5 },
+          { "Agurk", 5 },
+          { "Chili", 5 },
+          { "Hvidløg", 5 },
+          { "Skinke", 5 },
+          { "Ananas", 5 },
+          { "Bacon", 5 },
+          { "Kebab", 5 },
+          { "Bearnaisesovs", 5 },
+          { "Koedfars", 5 },
+          { "PommesFrites", 5 },
+          { "Roeddressing", 5 },
+          { "Jalapenos", 5 },
+          { "Løg", 5 },
+          { "Chilisauce", 5 }
+        };
+
+        private HashSet<string> checkedOptions = new HashSet<string>(); 
+        private decimal GetCustomizationPrice(string option)
+        {
+            
+            var customizationPrices = new Dictionary<string, decimal>
+            {
+                { "Ost", 5 },
+                { "Sucuk", 5 },
+                { "Poelser", 5 },
+                { "Pepperoni", 5 },
+                { "Poelser", 5 },
+                { "Salat", 5 },
+                { "CremeFraicheDress", 5 },
+                { "Tomat", 5 },
+                { "Agurk", 5 },
+                { "Chili", 5 },
+                { "Hvidløg", 5 },
+                { "Skinke", 5 },
+                { "Ananas", 5 },
+                { "Bacon", 5 },
+                { "Kebab", 5 },
+                { "Bearnaisesovs", 5 },
+                { "Koedfars", 5 },
+                { "PommesFrites", 5 },
+                { "Roeddressing", 5 },
+                { "Jalapenos", 5 },
+                { "Løg", 5 },
+                { "Chilisauce", 5 }
+
+            };
+
+            if (customizationPrices.TryGetValue(option, out decimal price))
+            {
+                return price;
+            }
+
+            
+            return 0;
+        }
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
-            decimal TotalPrice = selectedPizzaBasePrice;
-
-            decimal customizationPrice = CalculateCustomizationPrice(CustomizationOption);
-            TotalPrice += customizationPrice;
-
-            CustomizationOption.TotalPrice = TotalPrice;
-
-            DialogResult = true; 
+            DialogResult = true;
             Close();
         }
 
-        private decimal CalculateCustomizationPrice(CustomizationOption customizationOption)
-        {
-            decimal customizationPrice = 0;
+       
 
             
-            if (customizationOption.Sucuk)
-            {
-                customizationPrice += SucukPris; 
-            }
-
-            if (customizationOption.Poelser)
-            {
-                customizationPrice += PoelserPris; 
-            }
-
-            
-
-            return customizationPrice;
-        }
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = false; 
+            DialogResult = false;
             Close();
         }
     }

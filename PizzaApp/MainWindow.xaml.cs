@@ -22,9 +22,8 @@ namespace PizzaApp
 
     public partial class MainWindow : Window
     {
-
+        private CustomizationOption sharedCustomizationOption;
         private CustomizationOption customizationOption;
-        //private decimal SucukPris;
         private Dictionary<string, decimal> pizzaPrices = new Dictionary<string, decimal>
         {
                  { "Margherita Pizza - tomatsauce og ost 55,-", 55 },
@@ -57,7 +56,7 @@ namespace PizzaApp
             InitializePizzaListBoxItems();
             InitializeDrinkListBoxItems();
             customizationOption = new CustomizationOption();
-            //SucukPris = 5;
+           
         }
 
         private void InitializePizzaListBoxItems()
@@ -125,7 +124,7 @@ namespace PizzaApp
             public decimal PricePerItem { get; set; }
             public CustomizationOption CustomizationOption { get; set; }
 
-           // public decimal customizationOption = 5;
+           
 
         }
 
@@ -141,36 +140,42 @@ namespace PizzaApp
             {
                 string selectedPizza = ((ListBoxItem)pizzaListBox.SelectedItem).Content.ToString();
 
-                
                 if (pizzaPrices.ContainsKey(selectedPizza))
                 {
                     decimal selectedPizzaPrice = pizzaPrices[selectedPizza];
 
-                   
-                    Customize customizeWindow = new Customize(selectedPizza, customizationOption, selectedPizzaPrice);
+                    // Create a new instance of CustomizationOption for this pizza
+                    CustomizationOption pizzaCustomizationOption = new CustomizationOption();
+
+                    // Show the Customize window here, passing the pizza's CustomizationOption
+                    Customize customizeWindow = new Customize(selectedPizza, pizzaCustomizationOption, selectedPizzaPrice);
                     bool? result = customizeWindow.ShowDialog();
 
                     if (result == true)
                     {
-                        
-                        decimal totalCustomizationPrice = customizationOption.TotalCost;
+                        // Use the CustomizationOption associated with this pizza
+                        decimal pizzaCustomizationPrice = CalculateCustomizationPrice(pizzaCustomizationOption);
 
-                       
-                        var existingItem = orderItems.FirstOrDefault(item => item.Name == selectedPizza && item.CustomizationOption.Equals(customizationOption));
+                        var existingItem = orderItems.FirstOrDefault(item => item.Name == selectedPizza && item.CustomizationOption.Equals(pizzaCustomizationOption));
+
                         if (existingItem != null)
                         {
-                            
                             existingItem.Quantity++;
                         }
                         else
                         {
-                            
-                            orderItems.Add(new OrderItem { Name = selectedPizza, Quantity = 1, PricePerItem = selectedPizzaPrice, CustomizationOption = customizationOption });
+                            // Add the customized pizza to the cart
+                            orderItems.Add(new OrderItem
+                            {
+                                Name = selectedPizza,
+                                Quantity = 1,
+                                PricePerItem = selectedPizzaPrice + pizzaCustomizationPrice,
+                                CustomizationOption = pizzaCustomizationOption
+                            });
                         }
 
-                        
                         pizzaListBox.SelectedItem = null;
-                        
+                        UpdateOrderDisplay();
                     }
                 }
             }
@@ -187,7 +192,7 @@ namespace PizzaApp
 
             
             UpdateOrderDisplay();
-            //UpdateTotalCost(totalCost);
+            
         }
 
 
@@ -206,9 +211,6 @@ namespace PizzaApp
             }
             orderTextBox.Text = orderText.ToString();
         }
-
-
-
 
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -248,116 +250,120 @@ namespace PizzaApp
 
        public decimal CalculateCustomizationPrice(CustomizationOption customizationOption)
         {
+            
             decimal customizationPrice = 0;
 
             if (customizationOption.Ost)
             {
-                customizationPrice += 5;
+                customizationPrice += customizationOption.OstPris;
             }
 
             if (customizationOption.Sucuk)
             {
-                customizationPrice += 5;
+                customizationPrice += customizationOption.SucukPris;
             }
            
             if (customizationOption.Poelser)
             {
-                customizationPrice += 5;
+                customizationPrice += customizationOption.PoelserPris;
             }
 
             if (customizationOption.Pepperoni)
             {
-                customizationPrice += 5;
+                customizationPrice += customizationOption.PepperoniPris;
             }
 
             if (customizationOption.Salat)
             {
-                customizationPrice += 5;
+                customizationPrice += customizationOption.SalatPris;
             }
 
             if (customizationOption.CremeFraicheDress)
             {
-                customizationPrice += 5;
+                customizationPrice += customizationOption.CremeFraicheDressPris;
             }
 
             if (customizationOption.Tomat)
             {
-                customizationPrice += 5;
+                customizationPrice += customizationOption.TomatPris;
             }
 
             if (customizationOption.Agurk)
             {
-                customizationPrice += 5;
+                customizationPrice += customizationOption.AgurkPris;
             }
 
             if (customizationOption.Chili)
             {
-                customizationPrice += 5;
+                customizationPrice += customizationOption.ChiliPris;
             }
 
             if (customizationOption.Hvidløg)
             {
-                customizationPrice += 5;
+                customizationPrice += customizationOption.HvidløgPris;
             }
 
             if (customizationOption.Skinke)
             {
-                customizationPrice += 5;
+                customizationPrice += customizationOption.SkinkePris;
             }
 
             if (customizationOption.Ananas)
             {
-                customizationPrice += 5;
+                customizationPrice += customizationOption.AnanasPris;
             }
 
             if (customizationOption.Bacon)
             {
-                customizationPrice += 5;
+                customizationPrice += customizationOption.BaconPris;
             }
 
             if (customizationOption.Kebab)
             {
-                customizationPrice += 5;
+                customizationPrice += customizationOption.KebabPris;
             }
 
             if (customizationOption.Bearnaisesovs)
             {
-                customizationPrice += 5;
+                customizationPrice += customizationOption.BearnaisesovsPris;
             }
 
             if (customizationOption.Koedfars)
             {
-                customizationPrice += 5;
+                customizationPrice += customizationOption.KoedfarsPris;
             }
 
             if (customizationOption.PommesFrites)
             {
-                customizationPrice += 5;
+                customizationPrice += customizationOption.PommesFritesPris;
             }
 
             if (customizationOption.Roeddressing)
             {
-                customizationPrice += 5;
+                customizationPrice += customizationOption.RoeddressingPris;
             }
 
             if (customizationOption.Jalapenos)
             {
-                customizationPrice += 5;
+                customizationPrice += customizationOption.JalapenosPris;
             }
 
             if (customizationOption.Løg)
             {
-                customizationPrice += 5;
+                customizationPrice += customizationOption.LoegPris;
             }
 
             if (customizationOption.Chilisauce)
             {
-                customizationPrice += 5;
+                customizationPrice += customizationOption.ChilisaucePris;
             }
+
+            customizationOption.CustomizationCost = customizationPrice;
+
             return customizationPrice;
           
        }
-
+         
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             orderItems.Clear();

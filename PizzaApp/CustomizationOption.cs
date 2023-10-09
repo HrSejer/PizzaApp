@@ -9,6 +9,8 @@ namespace PizzaApp
 {
     public class CustomizationOption
     {
+
+        public decimal CustomizationCost { get; set; } = 0;
         public List<string> SelectedOptions { get; set; } = new List<string>();
         public decimal TotalCost { get; set; }
 
@@ -57,3 +59,6 @@ namespace PizzaApp
         public decimal TotalPrice { get; set; }
     }
 }
+
+
+
